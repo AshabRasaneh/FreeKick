@@ -1,10 +1,10 @@
 ﻿var Room = require('colyseus').Room;
 
-class ChatRoom extends Room {
-
+class frone extends Room {
+maxClients = 2;
 constructor() {
     super();
-    maxClients = 2;
+    
     this.setState({
         players: { },
       messages: []
