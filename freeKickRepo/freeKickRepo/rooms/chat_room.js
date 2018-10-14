@@ -53,4 +53,4 @@ onDispose() {
 
 }
 
-//module.exports = ChatRoom;
+module.exports = ChatRoom;
