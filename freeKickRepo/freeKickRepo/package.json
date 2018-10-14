@@ -1,0 +1,9 @@
+{
+  "name": "free-kick-repo",
+  "version": "0.0.0",
+  "description": "freeKickRepo",
+  "main": "app.js",
+  "author": {
+    "name": "ARP"
+  }
+}
