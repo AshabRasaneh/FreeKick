@@ -3,6 +3,7 @@ const express = require("express");
 
 const colyseus = require("colyseus");
 const ChatRoom = require('./rooms/chat_room');
+const frone = require('./rooms/fr1');
 
 const PORT = process.env.PORT || 3015;
 
@@ -13,6 +14,7 @@ const gameServer = new colyseus.Server({
 
 // Register ChatRoom as "chat"
 gameServer.register("chat", ChatRoom);
+gameServer.register("fr1", frone);
 
 app.get("/something", function (req, res) {
     console.log("something!", process.pid);
