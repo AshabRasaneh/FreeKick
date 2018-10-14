@@ -6,13 +6,13 @@ const gameServer = new Server({
 });
 
 // Import demo room handlers
-import { freeKickTier1 } from "./rooms/freeKickTier1";
+import { fr1 } from "./rooms/freeKickTier1";
 
 // Register ChatRoom as "chat"
-gameServer.register("freeKickTier1", freeKickTier1);
+gameServer.register("freeKickTier1", fr1);
 
 gameServer.onShutdown(function () {
     console.log(`game server is going down.`);
 });
 
-gameServer.listen(3015, "188.253.2.147");
+gameServer.listen(3015);

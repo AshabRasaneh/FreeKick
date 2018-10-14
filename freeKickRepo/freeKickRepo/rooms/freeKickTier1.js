@@ -14,30 +14,31 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var colyseus_1 = require("colyseus");
-var freeKickTier1 = /** @class */ (function (_super) {
-    __extends(freeKickTier1, _super);
-    function freeKickTier1() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var fr1 = /** @class */ (function (_super) {
+    __extends(fr1, _super);
+    function fr1() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        // this room supports only 4 clients connected
+        _this.maxClients = 2;
+        return _this;
     }
-    // this room supports only 4 clients connected
-    //maxClients = 4;
-    freeKickTier1.prototype.onInit = function (options) {
+    fr1.prototype.onInit = function (options) {
         console.log("BasicRoom created!", options);
     };
-    freeKickTier1.prototype.onJoin = function (client) {
+    fr1.prototype.onJoin = function (client) {
         this.broadcast(client.sessionId + " joined.");
     };
-    freeKickTier1.prototype.onLeave = function (client) {
+    fr1.prototype.onLeave = function (client) {
         this.broadcast(client.sessionId + " left.");
     };
-    freeKickTier1.prototype.onMessage = function (client, data) {
+    fr1.prototype.onMessage = function (client, data) {
         console.log("BasicRoom received message from", client.sessionId, ":", data);
         this.broadcast("(" + client.sessionId + ") " + data.message);
     };
-    freeKickTier1.prototype.onDispose = function () {
+    fr1.prototype.onDispose = function () {
         console.log("Dispose BasicRoom");
     };
-    return freeKickTier1;
+    return fr1;
 }(colyseus_1.Room));
-exports.freeKickTier1 = freeKickTier1;
+exports.fr1 = fr1;
 //# sourceMappingURL=freeKickTier1.js.map

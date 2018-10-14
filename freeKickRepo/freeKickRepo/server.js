@@ -8,9 +8,9 @@ var gameServer = new colyseus_1.Server({
 // Import demo room handlers
 var freeKickTier1_1 = require("./rooms/freeKickTier1");
 // Register ChatRoom as "chat"
-gameServer.register("freeKickTier1", freeKickTier1_1.freeKickTier1);
+gameServer.register("freeKickTier1", freeKickTier1_1.fr1);
 gameServer.onShutdown(function () {
     console.log("game server is going down.");
 });
-gameServer.listen(3015, "188.253.2.147");
+gameServer.listen(3015);
 //# sourceMappingURL=server.js.map

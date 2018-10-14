@@ -1,8 +1,8 @@
 ﻿import { Room } from "colyseus";
 
-export class freeKickTier1 extends Room {
+export class fr1 extends Room {
     // this room supports only 4 clients connected
-    //maxClients = 4;
+    maxClients = 2;
 
     onInit(options) {
         console.log("BasicRoom created!", options);
