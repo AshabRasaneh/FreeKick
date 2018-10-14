@@ -15,4 +15,4 @@ gameServer.onShutdown(function () {
     console.log(`game server is going down.`);
 });
 
-gameServer.listen(3015, "188.253.2.147");
+gameServer.listen(3015);
