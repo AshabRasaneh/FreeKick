@@ -25,3 +25,16 @@ app.get("/something", function (req, res) {
 gameServer.listen(PORT);
 
 console.log("Running on ws://localhost:" + PORT);
+
+(function () {
+    
+    try {
+        var timeout = setInterval(function () {
+            //GetNotificationMysql();
+            console.log(":");
+        }, 10000);
+    }
+    catch (e) {
+        console.log("2: " + e.message);
+    }
+})();
