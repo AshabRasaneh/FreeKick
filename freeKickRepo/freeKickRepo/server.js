@@ -2,7 +2,7 @@
 const express = require("express");
 
 const colyseus = require("colyseus");
-const ChatRoom = require('./chat_room');
+const ChatRoom = require('r./rooms/chat_room.js');
 
 const PORT = process.env.PORT || 3015;
 
