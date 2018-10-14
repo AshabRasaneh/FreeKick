@@ -13,7 +13,7 @@ constructor() {
 onInit(options) {
     //this.setPatchRate(1000 / 20);
     //this.setSimulationInterval(this.update.bind(this));
-    
+    this.maxClients = 2;
     console.log("fr1 created!", options);
 }
 
