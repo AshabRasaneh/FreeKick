@@ -1,7 +1,6 @@
 ﻿var Room = require('colyseus').Room;
 
 class frone extends Room {
-maxClients = 2;
 constructor() {
     super();
     
