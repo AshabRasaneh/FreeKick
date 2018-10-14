@@ -36,7 +36,6 @@
   <ItemGroup>
     <Content Include="colyseus\.all-contributorsrc" />
     <Content Include="colyseus\.editorconfig" />
-    <Content Include="colyseus\.github\CONTRIBUTING.md" />
     <Content Include="colyseus\.github\ISSUE_TEMPLATE.md" />
     <Content Include="colyseus\.gitignore" />
     <Content Include="colyseus\.npmignore" />
@@ -53,8 +52,6 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="colyseus\" />
-    <Folder Include="colyseus\.github\" />
     <Folder Include="colyseus\media\" />
     <Folder Include="colyseus\src\" />
     <Folder Include="colyseus\src\matchmaker\" />
