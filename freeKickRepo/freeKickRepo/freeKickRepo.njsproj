@@ -34,20 +34,82 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="colyseus\.all-contributorsrc" />
+    <Content Include="colyseus\.editorconfig" />
+    <Content Include="colyseus\.github\CONTRIBUTING.md" />
+    <Content Include="colyseus\.github\ISSUE_TEMPLATE.md" />
+    <Content Include="colyseus\.gitignore" />
+    <Content Include="colyseus\.npmignore" />
+    <Content Include="colyseus\.travis.yml" />
+    <Content Include="colyseus\CODE_OF_CONDUCT.md" />
+    <Content Include="colyseus\LICENSE" />
+    <Content Include="colyseus\media\header.png" />
+    <Content Include="colyseus\media\logo.png" />
+    <Content Include="colyseus\package.json" />
+    <Content Include="colyseus\README.md" />
+    <Content Include="colyseus\tsconfig.json" />
+    <Content Include="colyseus\tslint.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="colyseus\" />
+    <Folder Include="colyseus\.github\" />
+    <Folder Include="colyseus\media\" />
+    <Folder Include="colyseus\src\" />
+    <Folder Include="colyseus\src\matchmaker\" />
+    <Folder Include="colyseus\src\presence\" />
+    <Folder Include="colyseus\src\transport\" />
+    <Folder Include="colyseus\test\" />
+    <Folder Include="colyseus\test\benchmark\" />
+    <Folder Include="colyseus\test\deprecated\" />
+    <Folder Include="colyseus\test\misc-benchmark\" />
+    <Folder Include="colyseus\test\utils\" />
+    <Folder Include="colyseus\usage\" />
     <Folder Include="rooms\" />
     <Folder Include="typings\" />
     <Folder Include="typings\globals\" />
     <Folder Include="typings\globals\node\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="colyseus\src\Debug.ts" />
+    <TypeScriptCompile Include="colyseus\src\Errors.ts" />
+    <TypeScriptCompile Include="colyseus\src\index.ts" />
+    <TypeScriptCompile Include="colyseus\src\MatchMaker.ts" />
+    <TypeScriptCompile Include="colyseus\src\matchmaker\RegisteredHandler.ts" />
+    <TypeScriptCompile Include="colyseus\src\presence\LocalPresence.ts" />
+    <TypeScriptCompile Include="colyseus\src\presence\MemsharedPresence.ts" />
+    <TypeScriptCompile Include="colyseus\src\presence\Presence.ts" />
+    <TypeScriptCompile Include="colyseus\src\presence\RedisPresence.ts" />
+    <TypeScriptCompile Include="colyseus\src\presence\RemoteClient.ts" />
+    <TypeScriptCompile Include="colyseus\src\Protocol.ts" />
+    <TypeScriptCompile Include="colyseus\src\Room.ts" />
+    <TypeScriptCompile Include="colyseus\src\Server.ts" />
+    <TypeScriptCompile Include="colyseus\src\transport\tcp.ts" />
+    <TypeScriptCompile Include="colyseus\src\transport\ws.ts" />
+    <TypeScriptCompile Include="colyseus\src\Utils.ts" />
+    <TypeScriptCompile Include="colyseus\test\benchmark\RoomPatchBenchmark.ts" />
+    <TypeScriptCompile Include="colyseus\test\MatchMakerTest.ts" />
+    <TypeScriptCompile Include="colyseus\test\ModuleTest.ts" />
+    <TypeScriptCompile Include="colyseus\test\PatchTest.ts" />
+    <TypeScriptCompile Include="colyseus\test\PresenceTest.ts" />
+    <TypeScriptCompile Include="colyseus\test\RoomTest.ts" />
+    <TypeScriptCompile Include="colyseus\test\ServerTest.ts" />
+    <TypeScriptCompile Include="colyseus\test\utils\mock.ts" />
+    <TypeScriptCompile Include="colyseus\usage\ChatRoom.ts" />
+    <TypeScriptCompile Include="colyseus\usage\Server.ts" />
+    <TypeScriptCompile Include="colyseus\usage\ServerCluster.ts" />
+    <TypeScriptCompile Include="colyseus\usage\ServerScale.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="colyseus\test\benchmark\patch.js" />
+    <Compile Include="colyseus\test\deprecated\state_observer.js" />
+    <Compile Include="colyseus\test\misc-benchmark\deepdiff.js" />
+    <Compile Include="colyseus\test\misc-benchmark\patch.js" />
+    <Compile Include="colyseus\test\misc-benchmark\size.js" />
+    <Compile Include="colyseus\test\misc-benchmark\toJSON.js" />
     <Compile Include="rooms\chat_room.js" />
     <Compile Include="rooms\fr1.js" />
     <Compile Include="server.js" />
