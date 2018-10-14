@@ -2,7 +2,7 @@
 import { createServer } from "http";
 
 const gameServer = new Server({
-    server: createServer();
+    server: createServer()
 });
 
 // Import demo room handlers
