@@ -1,16 +1,25 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var colyseus_1 = require("colyseus");
-var http_1 = require("http");
-var gameServer = new colyseus_1.Server({
-    server: http_1.createServer()
+﻿const http = require("http");
+const express = require("express");
+
+const colyseus = require("colyseus");
+const ChatRoom = require('./chat_room');
+
+const PORT = process.env.PORT || 3015;
+
+const app = new express();
+const gameServer = new colyseus.Server({
+    server: http.createServer(app)
 });
-// Import demo room handlers
-var freeKickTier1_1 = require("./rooms/freeKickTier1");
+
 // Register ChatRoom as "chat"
-gameServer.register("fr1", freeKickTier1_1.fr1);
-gameServer.onShutdown(function () {
-    console.log("game server is going down.");
+gameServer.register("chat", ChatRoom);
+
+app.get("/something", function (req, res) {
+    console.log("something!", process.pid);
+    res.send("Hey!");
 });
-gameServer.listen(3015);
-//# sourceMappingURL=server.js.map
+
+// Listen on specified PORT number
+gameServer.listen(PORT);
+
+console.log("Running on ws://localhost:" + PORT);
