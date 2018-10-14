@@ -8,6 +8,6 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({
     // your custom WebSocket.Server setup.
 });
-wss.listen(3015);
+wss.listen(3020);
 const gameServer = new Server();
 gameServer.attach({ ws: wss });
