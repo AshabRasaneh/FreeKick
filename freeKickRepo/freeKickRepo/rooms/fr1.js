@@ -45,4 +45,4 @@ onDispose() {
 
 }
 
-module.exports = frone;
+//module.exports = frone;

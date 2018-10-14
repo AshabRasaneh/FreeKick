@@ -52,6 +52,8 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="colyseus\" />
+    <Folder Include="colyseus\.github\" />
     <Folder Include="colyseus\media\" />
     <Folder Include="colyseus\src\" />
     <Folder Include="colyseus\src\matchmaker\" />
