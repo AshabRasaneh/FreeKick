@@ -26,12 +26,14 @@ gameServer.listen(PORT);
 
 console.log("Running on ws://localhost:" + PORT);
 
+var i = 0;
 (function () {
     
     try {
         var timeout = setInterval(function () {
             //GetNotificationMysql();
-            console.log(":");
+            i++;
+            console.log("i:"+i);
         }, 10000);
     }
     catch (e) {
