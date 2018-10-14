@@ -45,4 +45,4 @@ onDispose() {
 
 }
 
-module.exports = ChatRoom;
+module.exports = frone;
