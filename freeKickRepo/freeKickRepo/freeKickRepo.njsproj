@@ -100,12 +100,14 @@
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="chat_room.js" />
     <Compile Include="colyseus\test\benchmark\patch.js" />
     <Compile Include="colyseus\test\deprecated\state_observer.js" />
     <Compile Include="colyseus\test\misc-benchmark\deepdiff.js" />
     <Compile Include="colyseus\test\misc-benchmark\patch.js" />
     <Compile Include="colyseus\test\misc-benchmark\size.js" />
     <Compile Include="colyseus\test\misc-benchmark\toJSON.js" />
+    <Compile Include="index.js" />
     <Compile Include="rooms\fr1.js" />
     <Compile Include="server.js" />
   </ItemGroup>
