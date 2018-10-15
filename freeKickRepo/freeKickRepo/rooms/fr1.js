@@ -4,7 +4,7 @@ class fr1 extends Room {
 
 constructor() {
     super();
-    maxClients = 2;
+    this.maxClients = 2;
     //this.setState({
     //    players: { }
     //});
