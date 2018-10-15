@@ -11,8 +11,8 @@ constructor() {
   }
 
 onInit(options) {
-    //this.setPatchRate(1000 / 20);
-    //this.setSimulationInterval(this.update.bind(this));
+    this.setPatchRate(1000 / 20);
+    this.setSimulationInterval(this.update.bind(this));
     //this.maxClients = 2;
     console.log("fr1 created!", options);
 }
@@ -38,6 +38,12 @@ onMessage(client, data) {
     
     this.broadcast({ hello: "hello world" });
 }
+
+update() {
+    console.log("num clients:", Object.keys(this.clients).length);
+    for (var sessionId in this.state.players) {
+        this.state.players[sessionId].x += 0.0001;
+    }
 
 onDispose() {
     console.log("Dispose ChatRoom");
