@@ -1,6 +1,7 @@
 ﻿var Room = require('colyseus').Room;
 
 class frone extends Room {
+
 constructor() {
     super();
     
@@ -13,8 +14,8 @@ constructor() {
 onInit(options) {
     this.setPatchRate(1000 / 20);
     this.setSimulationInterval(this.update.bind(this));
-    //this.maxClients = 2;
-    console.log("fr1 created!", options);
+    
+    console.log("ChatRoom created!", options);
 }
 
 requestJoin(options) {
@@ -24,7 +25,7 @@ requestJoin(options) {
 
 onJoin(client) {
     console.log("client joined!", client.sessionId);
-    this.state.players[client.sessionId] = { specification:null };
+    this.state.players[client.sessionId] = { x: 0, y: 0 };
 }
 
 onLeave(client) {
@@ -44,10 +45,12 @@ update() {
     for (var sessionId in this.state.players) {
         this.state.players[sessionId].x += 0.0001;
     }
+}
 
 onDispose() {
     console.log("Dispose ChatRoom");
 }
+
 
 }
 
