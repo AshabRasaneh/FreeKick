@@ -17,7 +17,15 @@ var colyseus_1 = require("colyseus");
 var fr1 = /** @class */ (function (_super) {
     __extends(fr1, _super);
     function fr1() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.maxClients = 2;
+        return _this;
+        //update() {
+        //    console.log("num clients:", Object.keys(this.clients).length);
+        //    //for (var sessionId in this.state.players) {
+        //    //    this.state.players[sessionId].x += 0.0001;
+        //    //}
+        //}
     }
     // Authorize client based on provided options before WebSocket handshake is complete
     fr1.prototype.onAuth = function (options) {
@@ -25,11 +33,12 @@ var fr1 = /** @class */ (function (_super) {
     };
     // When room is initialized
     fr1.prototype.onInit = function (options) {
-        this.setState({
-            players: {}
-        });
+        //this.setState({
+        //    players: {}
+        //});
         //this.setPatchRate(1000 / 20);
         //this.setSimulationInterval(this.update.bind(this));
+        console.log("fr1 created!", options);
     };
     // Checks if a new client is allowed to join. (default: `return true`)
     fr1.prototype.requestJoin = function (options, isNew) {
@@ -37,15 +46,20 @@ var fr1 = /** @class */ (function (_super) {
     };
     // When client successfully join the room
     fr1.prototype.onJoin = function (client) {
-        this.state.players[client.sessionId] = { specification: "" };
+        this.broadcast(client.sessionId + " joined.");
+        //this.state.players[client.sessionId] = {specification:""}
     };
     // When a client leaves the room
-    fr1.prototype.onLeave = function (client, consented) { };
+    fr1.prototype.onLeave = function (client, consented) {
+        this.broadcast(client.sessionId + " left.");
+    };
     // When a client sends a message
     fr1.prototype.onMessage = function (client, message) {
-        if (message.action === "setSpec") {
-            this.state.players[client.sessionId].specification = message;
-        }
+        console.log("fr1 received message from", client.sessionId, ":", message);
+        this.broadcast("(" + client.sessionId + ") " + message.message);
+        //if (message.action === "setSpec") {
+        //    this.state.players[client.sessionId].specification = message;
+        //}
     };
     // Cleanup callback, called after there are no more clients in the room. (see `autoDispose`)
     fr1.prototype.onDispose = function () {

@@ -1,6 +1,8 @@
 ﻿import { Room, Client } from "colyseus";
 
 export class fr1 extends Room {
+    maxClients = 2;
+
     // Authorize client based on provided options before WebSocket handshake is complete
     onAuth(options: any) {
         return true;
@@ -8,12 +10,13 @@ export class fr1 extends Room {
 
     // When room is initialized
     onInit(options: any) {
-        this.setState({
-            players: {}
-        });
+        //this.setState({
+        //    players: {}
+        //});
 
         //this.setPatchRate(1000 / 20);
         //this.setSimulationInterval(this.update.bind(this));
+        console.log("fr1 created!", options);
     }
 
     // Checks if a new client is allowed to join. (default: `return true`)
@@ -24,17 +27,22 @@ export class fr1 extends Room {
 
     // When client successfully join the room
     onJoin(client: Client) {
-        this.state.players[client.sessionId] = {specification:""}
+        this.broadcast(`${client.sessionId} joined.`);
+        //this.state.players[client.sessionId] = {specification:""}
     }
 
     // When a client leaves the room
-    onLeave(client: Client, consented: boolean) { }
+    onLeave(client: Client, consented: boolean) {
+        this.broadcast(`${client.sessionId} left.`);
+    }
 
     // When a client sends a message
     onMessage(client: Client, message: any) {
-        if (message.action === "setSpec") {
-            this.state.players[client.sessionId].specification = message;
-        }
+        console.log("fr1 received message from", client.sessionId, ":", message);
+        this.broadcast(`(${client.sessionId}) ${message.message}`);
+        //if (message.action === "setSpec") {
+        //    this.state.players[client.sessionId].specification = message;
+        //}
     }
 
     // Cleanup callback, called after there are no more clients in the room. (see `autoDispose`)
