@@ -5,7 +5,7 @@ const gameServer = new Server({
     server: createServer()
 });
 
-let fr1 = require("./rooms/ft1");
+let fr1 = require("./rooms/fr1");
 
 gameServer.register("fr1", fr1);
 
