@@ -10,6 +10,7 @@ var leaguesPlayersArr = [[]];
 var leaguesPlayersNameArr = [[]];
 var leaguesPlayersAvatarArr = [[]];
 var leagueSocksArr = [[]];
+var socks = [];
 
 (function () {
     var c = 0;
