@@ -5,9 +5,9 @@ class fr1 extends Room {
 constructor() {
     super();
     this.maxClients = 2;
-    //this.setState({
-    //    players: { }
-    //});
+    this.setState({
+        players: { }
+    });
   }
 
 onInit(options) {
@@ -35,8 +35,9 @@ onLeave(client) {
 onMessage(client, data) {
     console.log(data, "received from", client.sessionId);
     //this.state.messages.push(client.sessionId + " sent " + data);
+    this.state.players[client.sessionId] = { style: data };
     
-    this.broadcast({ hello: "hello world" });
+    this.broadcast(data);
 }
 
 //update() {
