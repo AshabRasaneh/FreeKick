@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var colyseus_1 = require("colyseus");
-var http_1 = require("http");
 var express = require("express");
+var http_1 = require("http");
+var colyseus_1 = require("colyseus");
 var fr1_1 = require("./rooms/fr1");
 var port = Number(process.env.PORT || 3015);
 var app = express();
