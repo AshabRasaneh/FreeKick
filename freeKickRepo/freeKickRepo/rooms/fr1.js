@@ -28,8 +28,8 @@ var fr1 = /** @class */ (function (_super) {
         this.setState({
             players: {}
         });
-        this.setPatchRate(1000 / 20);
-        this.setSimulationInterval(this.update.bind(this));
+        //this.setPatchRate(1000 / 20);
+        //this.setSimulationInterval(this.update.bind(this));
     };
     // Checks if a new client is allowed to join. (default: `return true`)
     fr1.prototype.requestJoin = function (options, isNew) {
@@ -50,12 +50,6 @@ var fr1 = /** @class */ (function (_super) {
     // Cleanup callback, called after there are no more clients in the room. (see `autoDispose`)
     fr1.prototype.onDispose = function () {
         console.log("Dispose fr1");
-    };
-    fr1.prototype.update = function () {
-        console.log("num clients:", Object.keys(this.clients).length);
-        //for (var sessionId in this.state.players) {
-        //    this.state.players[sessionId].x += 0.0001;
-        //}
     };
     return fr1;
 }(colyseus_1.Room));

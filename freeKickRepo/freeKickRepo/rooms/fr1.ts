@@ -12,8 +12,8 @@ export class fr1 extends Room {
             players: {}
         });
 
-        this.setPatchRate(1000 / 20);
-        this.setSimulationInterval(this.update.bind(this));
+        //this.setPatchRate(1000 / 20);
+        //this.setSimulationInterval(this.update.bind(this));
     }
 
     // Checks if a new client is allowed to join. (default: `return true`)
@@ -42,10 +42,10 @@ export class fr1 extends Room {
         console.log("Dispose fr1");
     }
 
-    update() {
-        console.log("num clients:", Object.keys(this.clients).length);
-        //for (var sessionId in this.state.players) {
-        //    this.state.players[sessionId].x += 0.0001;
-        //}
-    }
+    //update() {
+    //    console.log("num clients:", Object.keys(this.clients).length);
+    //    //for (var sessionId in this.state.players) {
+    //    //    this.state.players[sessionId].x += 0.0001;
+    //    //}
+    //}
 }
