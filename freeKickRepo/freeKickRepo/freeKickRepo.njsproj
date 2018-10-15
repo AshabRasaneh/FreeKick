@@ -36,7 +36,6 @@
   <ItemGroup>
     <Content Include="colyseus\.all-contributorsrc" />
     <Content Include="colyseus\.editorconfig" />
-    <Content Include="colyseus\.github\ISSUE_TEMPLATE.md" />
     <Content Include="colyseus\.gitignore" />
     <Content Include="colyseus\.npmignore" />
     <Content Include="colyseus\.travis.yml" />
@@ -52,8 +51,6 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="colyseus\" />
-    <Folder Include="colyseus\.github\" />
     <Folder Include="colyseus\media\" />
     <Folder Include="colyseus\src\" />
     <Folder Include="colyseus\src\matchmaker\" />
@@ -99,6 +96,8 @@
     <TypeScriptCompile Include="colyseus\usage\Server.ts" />
     <TypeScriptCompile Include="colyseus\usage\ServerCluster.ts" />
     <TypeScriptCompile Include="colyseus\usage\ServerScale.ts" />
+    <TypeScriptCompile Include="rooms\fr1.ts" />
+    <TypeScriptCompile Include="server.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>
@@ -109,9 +108,6 @@
     <Compile Include="colyseus\test\misc-benchmark\patch.js" />
     <Compile Include="colyseus\test\misc-benchmark\size.js" />
     <Compile Include="colyseus\test\misc-benchmark\toJSON.js" />
-    <Compile Include="rooms\chat_room.js" />
-    <Compile Include="rooms\fr1.js" />
-    <Compile Include="server.js" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

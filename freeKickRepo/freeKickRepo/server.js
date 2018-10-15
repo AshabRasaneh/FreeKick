@@ -1,42 +1,11 @@
-﻿const http = require("http");
-const express = require("express");
-
-const colyseus = require("colyseus");
-const ChatRoom = require('./rooms/chat_room');
-const frone = require('./rooms/fr1');
-
-const PORT = process.env.PORT || 3015;
-
-const app = new express();
-const gameServer = new colyseus.Server({
-    server: http.createServer(app)
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var colyseus_1 = require("colyseus");
+var http_1 = require("http");
+var gameServer = new colyseus_1.Server({
+    server: http_1.createServer()
 });
-
-// Register ChatRoom as "chat"
-gameServer.register("chat", ChatRoom);
-gameServer.register("fr1", frone);
-
-app.get("/something", function (req, res) {
-    console.log("something!", process.pid);
-    res.send("Hey!");
-});
-
-// Listen on specified PORT number
-gameServer.listen(PORT);
-
-console.log("Running on ws://localhost:" + PORT);
-
-var i = 0;
-(function () {
-    
-    try {
-        var timeout = setInterval(function () {
-            //GetNotificationMysql();
-            i++;
-            console.log("i:"+i);
-        }, 10000);
-    }
-    catch (e) {
-        console.log("2: " + e.message);
-    }
-})();
+var fr1 = require("./rooms/ft1");
+gameServer.register("fr1", fr1);
+gameServer.listen(3015);
+//# sourceMappingURL=server.js.map
