@@ -23,6 +23,7 @@ FreekickGame[6] = { players: [] };
 
 io.on('connection', function (socket) {
     
+
     console.log('client coneccted');
     socket.emit('connectToServer', { res: "ok" });
     
