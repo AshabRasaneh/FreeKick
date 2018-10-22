@@ -21,7 +21,16 @@ FreekickGame[4] = { players: [] };
 FreekickGame[5] = { players: [] };
 FreekickGame[6] = { players: [] };
 
-setTimeout(function () { console.log("live"); }, 10000);
+(function () {
+    
+    try {
+        var timeout = setInterval(function () {
+            console.log("live");
+        }, 10000);
+    } catch (e) {
+        console.log("2: " + e.message);
+    }
+})();
 
 
 io.on('connection', function (socket) {
