@@ -35,7 +35,7 @@ FreekickGame[6] = { players: [] };
 
 io.on('connection', function (socket) {
     
-
+    
     console.log('client coneccted');
     socket.emit('connectToServer', { res: "ok" });
     
@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
             level = data.level;
             var playerName = data.playerName;
             var seconds = new Date().getTime() / 1000;
-            var dt = { id: id, playerName: playerName, mySocket: socket, Alive: seconds, level: level, plReady: 0 };
+            var dt = { id: id, playerName: playerName, mySocket: socket, Alive: seconds, level: level, plReady: 0, playerPos: 0, objectPos: [], hitCount: 0 };
             
             players[id] = dt;
         }
@@ -116,7 +116,7 @@ io.on('connection', function (socket) {
     
     socket.on('ChooseGame', function (data) {
         try {
-            // console.log(data);
+            
             GameType = data.GameType;
             GameTier = data.GameTier;
             var pfk = data.fk;
@@ -129,24 +129,78 @@ io.on('connection', function (socket) {
             
             
             if (GameType == "sh") {
+                console.log(id);
                 ShootingGame[GameTier].players[id] = dt;
+                
                 for (var pl in ShootingGame[GameTier].players) {
-                    if (ShootingGame[GameTier].players[pl].level == level) {
-                        //plReady = 0;
-                        partnerId = ShootingGame[GameTier].players[pl].id;
-                        var sdt = { partnerId: id, fk: pfk, gk: pgk, ball: ball, powers: plpower, playerVal: playerVal };
-                        players[partnerId].mySocket.emit('startGame', sdt);
-                        
-                        ShootingGame[GameTier].players.splice(id, 1);
-                        ShootingGame[GameTier].players.splice(partnerId, 1);
-                        
-                        players[partnerId].plReady = 0;
-                        players[id].plReady = 0;
-                        //var mdt = { partnerId: partnerId, fk: pfk, gk: pgk, ball: ball, powers: plpower, playerVal: playerVal };
-                        var mdt = { partnerId: partnerId, fk: ShootingGame[GameTier].players[partnerId].fk, gk: ShootingGame[GameTier].players[partnerId].gk, ball: ShootingGame[GameTier].players[partnerId].ball, powers: ShootingGame[GameTier].players[partnerId].powers, playerVal: ShootingGame[GameTier].players[partnerId].playerVal };
-                        socket.emit('startGame', mdt);
-                        return;
-                    }
+                    if (typeof (ShootingGame[GameTier].players[pl]) != "undefined")
+                        if ((ShootingGame[GameTier].players[pl].level < level + 1 || ShootingGame[GameTier].players[pl].level > level - 1) && ShootingGame[GameTier].players[pl].id != id) {
+                            partnerId = ShootingGame[GameTier].players[pl].id;
+                            if (typeof (players[partnerId]) != "undefined") {
+                                players[partnerId].plReady = 0;
+                                players[id].plReady = 0;
+                                
+                                var rnd = Math.floor(Math.random() * 2) + 0;
+                                var playerPos = rnd;
+
+                                rnd++;
+
+                                if (rnd > 2) { rnd = 0; }
+                                var comPos = rnd;
+                                
+                                players[partnerId].playerPos = comPos;
+                                players[id].playerPos = playerPos;
+                                
+                                players[id].objectPos = [];
+                                players[partnerId].objectPos = [];
+                                
+                                players[id].hitCount = 0;
+                                players[partnerId].hitCount = 0;
+                                
+                                var IsEnd = false;
+                                var counter = 0;
+                                
+                                while (!IsEnd) {
+                                    rnd = Math.floor(Math.random() * 9) + 0;
+                                    var canAdd = true;
+                                    
+                                    for (var i = 0; i < players[id].objectPos.length; i++) {
+                                        if (players[id].objectPos[i] == rnd) {
+                                            canAdd = false;
+                                        }
+                                    }
+                                    
+                                    if (canAdd) {
+                                        players[id].objectPos.push(rnd);
+                                        counter++;
+                                        if (counter > 3) {
+                                            IsEnd = true;
+                                        }
+                                    }
+                                }
+                                
+                                players[partnerId].objectPos = players[id].objectPos;
+                                plReady = 0;
+                                
+                                var sdt = {
+                                    partnerId: id, fk: pfk, gk: pgk, ball: ball, powers: plpower, playerVal: playerVal, plReady: 0, 
+                                    playerPos: players[partnerId].playerPos,comPos: players[id].playerPos,  objectPos: players[id].objectPos , hitCount: 0
+                                };
+                                
+                                var mdt = {
+                                    partnerId: partnerId, fk: ShootingGame[GameTier].players[partnerId].fk, gk: ShootingGame[GameTier].players[partnerId].gk, ball: ShootingGame[GameTier].players[partnerId].ball, powers: ShootingGame[GameTier].players[partnerId].powers, playerVal: ShootingGame[GameTier].players[partnerId].playerVal, plReady: 0, 
+                                    playerPos: players[id].playerPos, comPos: players[partnerId].playerPos, objectPos: players[id].objectPos , hitCount: 0
+                                };
+
+                                players[partnerId].mySocket.emit('startGame', sdt);
+                                socket.emit('startGame', mdt);
+
+                                delete ShootingGame[GameTier].players[id];
+                                delete ShootingGame[GameTier].players[partnerId];
+                                
+                                return;
+                            }
+                        }
                 }
                 
                 var rdt = { result: "none" };
@@ -279,7 +333,16 @@ io.on('connection', function (socket) {
         }
     });
     
-    
+    socket.on('winnerWithWait', function (data) {
+        try {
+            //console.log(data);
+            socket.emit("winWithPartnerLeft", data);
+        }
+        catch (e) {
+            console.log("goalKeeperEnd: " + e.message);
+            socket.emit("winWithPartnerLeft", data);
+        }
+    });
     
     socket.on('endDast', function (data) {
         try {
@@ -373,6 +436,130 @@ io.on('connection', function (socket) {
         }
         catch (e) {
             console.log("sendEmoji: " + e.message);
+        }
+    });
+    
+    socket.on('ResetPlayer', function (data) {
+        try {
+            if (typeof (players[data.partnerId]) != "undefined") {
+                //console.log(data);
+                players[data.partnerId].mySocket.emit("ResetPlayer", data);
+            }
+            else {
+                
+                socket.emit("winWithPartnerLeft", data);
+            }
+        }
+        catch (e) {
+            console.log("ResetPlayer: " + e.message);
+            socket.emit("winWithPartnerLeft", data);
+        }
+    });
+    
+    socket.on('endGameSh', function (data) {
+        try {
+            if (typeof (players[data.partnerId]) != "undefined") {
+                var dt = {
+                    pHitCount: players[id].hitCount, cHitCount: players[data.partnerId].hitCount
+                };
+            }
+            else {
+                var dt = {
+                    pHitCount: players[id].hitCount, cHitCount:0
+                };
+                
+            }
+
+            socket.emit("onEndGameSh", dt);
+        }
+        catch (e) {
+            console.log("endGame: " + e.message);
+        }
+    });
+
+    
+    socket.on('HitTarget', function (data) {
+        try {
+            
+            if (typeof (players[data.partnerId]) != "undefined") {
+                
+                var IsCom = data.IsCom;
+                //var CreateCounter = data.CreateCounter;
+                var Id = data.Id;
+                
+                var canAdd = false;
+                var ind = -1;
+                
+                for (var i = 0; i < players[id].objectPos.length; i++) {
+                    if (players[id].objectPos[i] == Id) {
+                        canAdd = true;
+                        ind = i;
+                    }
+                }
+                
+                if (canAdd) {
+                    
+                    if (IsCom) {
+                        players[data.partnerId].hitCount++;
+
+                        var val = players[data.partnerId].playerPos;
+                        val++;
+                        if (val > 2) { val = 0; }
+                        if (val == players[id].playerPos) {
+                            val++;
+                            if (val > 2) { val = 0; }
+                        }
+                        players[data.partnerId].playerPos = val;
+
+                    }
+                    else {
+                        players[id].hitCount++;
+                        
+                        var val = players[id].playerPos;
+                        val++;
+                        if (val > 2) { val = 0; }
+                        if (val == players[data.partnerId].playerPos) {
+                            val++;
+                            if (val > 2) { val = 0; }
+                        }
+                        players[id].playerPos = val;
+                    }
+                    
+                    var IsEnd = false;
+                    
+                    while (!IsEnd) {
+                        rnd = Math.floor(Math.random() * 9) + 0;
+                        var canAdd = true;
+                        
+                        for (var i = 0; i < players[id].objectPos.length; i++) {
+                            if (players[id].objectPos[i] == rnd) {
+                                canAdd = false;
+                            }
+                        }
+                        
+                        if (canAdd) {
+                            players[id].objectPos[ind]=rnd;
+                            IsEnd = true;
+                        }
+                    }
+
+                    players[data.partnerId].objectPos = players[id].objectPos;
+                   
+
+                    var dt = { IsCom: IsCom, playerPos: players[id].playerPos, playerPosCom: players[data.partnerId].playerPos, objectPos: players[id].objectPos, senderId: id, pHitCount: players[id].hitCount, cHitCount: players[data.partnerId].hitCount };
+
+                    players[data.partnerId].mySocket.emit("HitTargetResult", dt);
+                    socket.emit("HitTargetResult", dt);
+
+                }
+            }
+            else {
+                socket.emit("winWithPartnerLeft", data);
+            }
+        }
+        catch (e) {
+            console.log("playerShootsBall: " + e.message);
+            socket.emit("winWithPartnerLeft", data);
         }
     });
 
