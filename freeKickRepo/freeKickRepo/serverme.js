@@ -289,9 +289,14 @@ io.on('connection', function (socket) {
             else {
                 delete FreekickGame[GameTi].players[id];
             }
-            
             GameType = "";
             GameTier = -1;
+            if (partnerId > 0) {
+                if (typeof (players[partnerId]) != "undefined") {
+                    players[partnerId].mySocket.emit("OnPartnerCancelChoose", data);
+                }
+            }
+            
             partnerId = -1;
         }
         catch (e) {
