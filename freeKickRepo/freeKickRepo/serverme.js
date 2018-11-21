@@ -293,7 +293,7 @@ io.on('connection', function (socket) {
             GameTier = -1;
             if (partnerId > 0) {
                 if (typeof (players[partnerId]) != "undefined") {
-                    players[partnerId].mySocket.emit("OnPartnerCancelChoose", data);
+                    socket.emit("OnPartnerCancelChoose", data);
                 }
             }
             
@@ -482,7 +482,6 @@ io.on('connection', function (socket) {
         }
     });
 
-    
     socket.on('HitTarget', function (data) {
         try {
             
