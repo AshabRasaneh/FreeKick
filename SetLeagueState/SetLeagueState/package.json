@@ -1,0 +1,9 @@
+{
+  "name": "set-league-state",
+  "version": "0.0.0",
+  "description": "SetLeagueState",
+  "main": "app.js",
+  "author": {
+    "name": "ARP"
+  }
+}

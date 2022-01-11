@@ -294,6 +294,7 @@ io.on('connection', function (socket) {
             if (partnerId > 0) {
                 if (typeof (players[partnerId]) != "undefined") {
                     socket.emit("OnPartnerCancelChoose", data);
+                    players[partnerId].mySocket.emit("OnPartnerCancelChoose", data);
                 }
             }
             
